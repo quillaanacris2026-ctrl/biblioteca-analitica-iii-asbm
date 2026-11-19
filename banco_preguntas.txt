@@ -1,0 +1,25 @@
+BANCO DE ACTIVIDADES – QUÍMICA ANALÍTICA III DIGITAL
+
+1. Relacionar fase estacionaria, fase móvil y Rf.
+Respuesta: fase estacionaria = permanece fija; fase móvil = fluido que transporta analitos; Rf = cociente entre distancia del analito y distancia del frente del disolvente.
+
+2. Cálculo de Rf: mancha 3,0 cm; frente 6,0 cm.
+Respuesta: Rf = 3,0/6,0 = 0,50.
+
+3. Verdadero/falso: A aumenta con c bajo condiciones lineales de Beer-Lambert.
+Respuesta: Verdadero. A = εbc.
+
+4. Orden del procedimiento fotométrico.
+Respuesta: verificar/encender; seleccionar método y longitud de onda; leer blanco y calibrar; procesar controles y después muestras.
+
+5. Modo STAT FAX para reacción enzimática cinética.
+Respuesta: RATE/cinético.
+
+6. CV con media 100 mg/dL y DE 2 mg/dL.
+Respuesta: CV% = (2/100)×100 = 2%.
+
+7. Dos controles consecutivos exceden 2 DE en el mismo lado.
+Respuesta: regla 2₂s.
+
+8. Control fuera de límites.
+Respuesta: detener liberación, investigar, corregir, repetir/verificar el control y documentar antes de liberar resultados.

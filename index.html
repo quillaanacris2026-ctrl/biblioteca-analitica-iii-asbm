@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Química Analítica III Digital | Biblioteca interactiva</title>
+<style>
+:root{--ink:#30213d;--purple:#65358a;--violet:#8b5bb2;--lav:#eee5f5;--cream:#fbf8f3;--gold:#d5ad58;--muted:#716779;--line:#e4d9eb}
+*{box-sizing:border-box}body{margin:0;background:#f8f5fa;color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}
+header{background:linear-gradient(125deg,#30213d,#674184 65%,#8c69a3);color:white;padding:44px 22px 36px;text-align:center}
+header .eyebrow{letter-spacing:.18em;text-transform:uppercase;color:#e9d8f5;font-size:.78rem}
+header h1{font-family:Georgia,serif;font-size:clamp(2rem,5vw,3.5rem);line-height:1.12;margin:12px auto;max-width:900px}
+header p{margin:8px auto;max-width:760px;color:#f0e8f5}
+.names{font-size:.92rem;color:#f5edf8;margin-top:20px}
+nav{position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line);display:flex;gap:8px;overflow:auto;padding:10px max(14px,calc((100% - 1150px)/2));box-shadow:0 3px 12px #3420440c}
+nav button{white-space:nowrap;border:0;background:transparent;color:var(--ink);padding:10px 13px;border-radius:999px;font-weight:650;cursor:pointer}
+nav button.active,nav button:hover{background:var(--lav);color:var(--purple)}
+main{max-width:1120px;margin:28px auto;padding:0 18px 70px}
+section.page{display:none}section.page.active{display:block}
+.hero{background:var(--cream);border:1px solid var(--line);border-radius:22px;padding:28px;margin-bottom:22px}
+h2,h3{font-family:Georgia,serif;color:#4a2d60;line-height:1.2}h2{font-size:2rem;margin:0 0 12px}h3{font-size:1.35rem;margin-top:28px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px}
+.card{background:white;border:1px solid var(--line);border-radius:17px;padding:19px;box-shadow:0 8px 24px #3520440a}
+.card strong{color:var(--purple)}.tag{display:inline-block;background:var(--lav);color:var(--purple);padding:4px 10px;border-radius:30px;font-size:.8rem;font-weight:700}
+.callout{border-left:4px solid var(--gold);background:#fffaf0;padding:14px 17px;border-radius:8px;margin:16px 0}
+.formula{font-family:Georgia,serif;font-size:1.2rem;background:#f2edf6;padding:14px;border-radius:10px;overflow:auto}
+table{width:100%;border-collapse:collapse;margin:14px 0;background:white;border-radius:12px;overflow:hidden}th,td{padding:11px 12px;border:1px solid var(--line);text-align:left}th{background:#eee5f5;color:#4a2d60}
+button.action{background:var(--purple);color:white;border:0;border-radius:10px;padding:10px 16px;cursor:pointer;font-weight:700}
+.quiz{margin:16px 0;padding:18px;border:1px solid var(--line);border-radius:15px;background:white}.quiz label{display:block;padding:7px 10px;margin:6px 0;border-radius:8px;background:#faf8fc;cursor:pointer}.feedback{font-weight:700;margin-top:10px}.correct{color:#187448}.wrong{color:#a13a48}
+footer{text-align:center;color:var(--muted);padding:25px;border-top:1px solid var(--line);font-size:.9rem}
+a{color:#68408b}
+@media(max-width:600px){header{padding:32px 16px}main{padding:0 12px 45px}.hero{padding:20px}nav button{padding:8px 10px;font-size:.86rem}}
+</style>
+<style>
+.chapter-extra{margin:24px 0;padding:22px;background:#fff;border:1px solid var(--line);border-radius:16px}
+.chapter-extra h3{margin-top:22px}
+.chapter-extra h4{color:#65358a;margin:18px 0 6px}
+.chapter-extra .note{background:#f5eff9;border-left:4px solid #8b5bb2;padding:13px 16px;border-radius:8px;margin:14px 0}
+.chapter-extra .mini-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.chapter-extra .mini-grid article{background:#fbf8fd;border:1px solid #e8ddec;border-radius:12px;padding:14px}
+.game-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin:18px 0}
+.game-card h3{margin-top:0}
+.game-card select,.game-card input[type=text],.game-card input[type=number]{padding:9px;border:1px solid #cdbbd9;border-radius:8px;max-width:100%;margin:4px}
+.game-card button{margin-top:10px}
+.game-feedback{font-weight:700;margin-top:10px;min-height:1.5em}
+.game-feedback.ok{color:#187448}.game-feedback.no{color:#a13a48}
+.game-card .pair-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center;margin:9px 0}
+.game-card .pair-row span{font-weight:600}
+.progress-note{font-size:.9rem;color:var(--muted)}
+@media(max-width:600px){.chapter-extra,.game-card{padding:15px}.game-card .pair-row{grid-template-columns:1fr}}
+</style>
+<style>.science-figure{margin:22px 0 28px;padding:14px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 24px #3520440a}.science-figure img{display:block;width:100%;height:auto;border-radius:10px}.science-figure figcaption{font-size:.9rem;color:var(--muted);padding:10px 5px 2px;line-height:1.5}.reference-list li{margin:0 0 13px}.reference-list a{overflow-wrap:anywhere}.source-note{font-size:.9rem;color:var(--muted)}</style></head>
+<body>
+<header>
+<div class="eyebrow">Evaluación continua · Hito 4</div>
+<h1>Química Analítica III Digital</h1>
+<p>Biblioteca científica interactiva de cromatografía, espectrofotometría, analizadores Stat Fax y control de calidad analítico.</p>
+<div class="names"><b>Integrantes</b><br/>Anacris Sofia Quilla Fuentes · Stefany Jhoselin Solis Medrano<br/>Brenda Mariela Guaman Florero · Milenka Alizon Trujillo Ancieta<br/><br/><b>Asignatura:</b> Química Analítica III<br/><b>Docente:</b> Dra. Paula Andrea Hinojosa</div>
+</header>
+<nav aria-label="Navegación principal">
+<button class="active" data-page="inicio">Inicio</button><button data-page="crom">01 · Cromatografía</button><button data-page="espectro">02 · Espectrofotometría</button><button data-page="statfax">03 · Stat Fax</button><button data-page="calidad">04 · Control de calidad</button><button data-page="juegos">Juegos</button><button data-page="fuentes">Bibliografía</button>
+</nav>
+<main>
+<section class="page active" id="inicio">
+<div class="hero"><span class="tag">Biblioteca digital universitaria</span><h2>Explora, comprende y pon a prueba tus conocimientos</h2><p>Este recurso reúne fundamentos, procedimientos, aplicaciones bioquímicas y farmacéuticas, ejercicios y actividades de autoevaluación. Está organizado como un libro digital para consultar cada capítulo de forma independiente.</p></div>
+<div class="grid">
+<div class="card"><strong>01 · Cromatografía</strong><p>Separación de componentes de una mezcla mediante su distribución entre fases.</p></div>
+<div class="card"><strong>02 · Espectrofotometría</strong><p>Medición de la interacción entre radiación y materia para el análisis cualitativo y cuantitativo.</p></div>
+<div class="card"><strong>03 · Analizadores Stat Fax</strong><p>Principio fotométrico, operación y aplicaciones del Stat Fax 1904 Plus.</p></div>
+<div class="card"><strong>04 · Control de calidad</strong><p>Calibración, controles, estadística, gráficos e interpretación de reglas de control.</p></div>
+</div>
+<h3>Objetivo educativo</h3><p>Integrar los principios fisicoquímicos y los procedimientos de métodos analíticos utilizados en el laboratorio clínico y farmacéutico, desarrollando la capacidad de calcular, interpretar y evaluar resultados confiables.</p>
+<div class="callout"><b>Cómo utilizar la biblioteca:</b> selecciona un capítulo en el menú superior, estudia sus apartados y luego ingresa a Juegos para comprobar lo aprendido. Los ejercicios son ejemplos didácticos; los procedimientos reales deben seguir el método validado, el inserto del reactivo y las indicaciones del laboratorio.</div>
+</section>
+<section class="page" id="crom">
+<span class="tag">Capítulo 01 · Brenda</span><h2>Cromatografía</h2><figure class="science-figure"><img alt="Cromatograma ilustrativo con dos señales separadas. Los tiempos de retención se identifican en el máximo de cada pico." loading="lazy" src="imagenes/cromatograma.svg"/><figcaption>Esquema didáctico elaborado para esta biblioteca; los picos no corresponden a datos experimentales.</figcaption></figure>
+<p>La cromatografía es un conjunto de técnicas de separación en las que los componentes de una mezcla se distribuyen de manera diferente entre una <b>fase estacionaria</b> y una <b>fase móvil</b>. La distinta afinidad de cada compuesto por ambas fases provoca velocidades de migración diferentes y permite separarlos.</p>
+<h3>Fundamento y conceptos</h3><div class="grid">
+<div class="card"><b>Fase estacionaria</b><p>Material que permanece fijo o inmovilizado; puede ser sólido o un líquido soportado sobre un sólido.</p></div>
+<div class="card"><b>Fase móvil</b><p>Fluido que se desplaza a través de la fase estacionaria y transporta los componentes: puede ser líquido o gas.</p></div>
+<div class="card"><b>Elución</b><p>Proceso por el cual la fase móvil arrastra los analitos a través del sistema cromatográfico.</p></div>
+</div>
+<h3>Clasificación general</h3><table><tr><th>Criterio</th><th>Tipos</th><th>Característica</th></tr><tr><td>Estado de fase móvil</td><td>Gas (CG) / Líquido (CL)</td><td>La fase móvil es un gas o un líquido.</td></tr><tr><td>Geometría</td><td>Columna / Planar</td><td>La fase estacionaria está en una columna o sobre una superficie plana.</td></tr><tr><td>Mecanismo</td><td>Adsorción, partición, intercambio iónico, exclusión por tamaño, afinidad</td><td>La separación depende de interacciones fisicoquímicas distintas.</td></tr></table>
+<h3>Parámetros cromatográficos</h3>
+<p>El <b>tiempo de retención (tR)</b> es el tiempo desde la inyección hasta la detección del analito. El <b>tiempo muerto (tM)</b> corresponde a una especie no retenida. El factor de retención expresa cuánto se retiene un analito respecto a la fase móvil.</p>
+<div class="formula">k' = (tR − tM) / tM</div>
+<p>La resolución entre dos picos se estima mediante:</p><div class="formula">Rs = 2 (tR₂ − tR₁) / (w₁ + w₂)</div>
+<p>donde w₁ y w₂ son los anchos de los picos en la línea de base. Una resolución cercana o superior a 1,5 suele considerarse indicativa de separación de línea de base en condiciones habituales.</p>
+<h3>Procedimiento general en cromatografía líquida</h3><ol><li>Seleccionar columna y fase móvil de acuerdo con las propiedades del analito.</li><li>Preparar, filtrar y desgasificar la fase móvil cuando el método lo requiera.</li><li>Equilibrar el sistema y verificar presión, flujo y línea base.</li><li>Preparar estándares y muestras; filtrar si corresponde.</li><li>Inyectar un volumen definido y registrar el cromatograma.</li><li>Identificar picos por comparación con estándares y cuantificar mediante calibración.</li><li>Evaluar aptitud del sistema, registrar datos y limpiar según el procedimiento.</li></ol>
+<h3>Aplicaciones en Bioquímica y Farmacia</h3><ul><li>Separación y cuantificación de principios activos e impurezas en medicamentos.</li><li>Determinación de metabolitos, aminoácidos, vitaminas y compuestos en matrices biológicas.</li><li>Control de pureza, estabilidad y degradación de formulaciones farmacéuticas.</li><li>Identificación de componentes en muestras complejas antes de su cuantificación.</li></ul>
+<div class="callout"><b>Ejercicio resuelto:</b> un compuesto presenta tR = 8,0 min y tM = 2,0 min. Entonces k' = (8−2)/2 = <b>3,0</b>. El analito permanece retenido tres veces el tiempo muerto, según esta definición del factor de retención.</div>
+<h3>Ventajas y limitaciones</h3><p>Permite separar mezclas complejas con alta selectividad y sensibilidad. Sus limitaciones incluyen costo de equipos y columnas, consumo de solventes, necesidad de optimizar condiciones y dependencia de estándares y preparación de muestra.</p>
+<h3>Autoevaluación del capítulo</h3>
+<div class="chapter-extra">
+<h3>Desarrollo ampliado del capítulo</h3>
+<h4>1. Evolución y principio de separación</h4>
+<p>La cromatografía permite separar, identificar y, en muchos casos, cuantificar los componentes de una mezcla. La muestra se introduce en un sistema donde una fase móvil se desplaza en contacto con una fase estacionaria. Cada analito establece interacciones diferentes —por ejemplo, adsorción, partición, interacción iónica o afinidad específica— y por eso avanza a una velocidad distinta. La separación no depende simplemente del tamaño o del color, sino de las propiedades fisicoquímicas del analito y de las condiciones del sistema.</p>
+<h4>2. Cromatografía en papel y capa fina (TLC)</h4>
+<p>En cromatografía en papel, el papel actúa como soporte de la fase estacionaria y el disolvente asciende por capilaridad. En cromatografía en capa fina, una placa recubierta con sílica gel o alúmina funciona como fase estacionaria. Se marca una línea de origen, se deposita una pequeña cantidad de muestra y se coloca la placa en una cámara con fase móvil, cuidando que el nivel del disolvente quede por debajo de la muestra. Cuando el frente del solvente avanza, se retira la placa, se marca inmediatamente el frente y se visualizan las manchas mediante luz UV o reactivos reveladores.</p>
+<div class="formula">Rf = distancia recorrida por el analito / distancia recorrida por el frente del disolvente</div>
+<p>El valor de Rf se encuentra entre 0 y 1 en condiciones habituales. Deben compararse sustancias en la misma placa o bajo condiciones idénticas, porque el Rf depende de la fase estacionaria, composición del eluyente, temperatura y saturación de la cámara.</p>
+<h4>3. Cromatografía en columna</h4>
+<p>La fase estacionaria se empaca dentro de una columna y la fase móvil atraviesa el lecho. La muestra se aplica en la parte superior y los componentes eluyen en distintos tiempos. Es útil para separar y purificar cantidades preparativas. La selección de la polaridad de la fase móvil influye en la retención: en fase normal, una fase estacionaria polar retiene con mayor fuerza compuestos polares; en fase reversa, la fase estacionaria es menos polar y la fase móvil suele ser más acuosa.</p>
+<h4>4. Cromatografía de gases (GC) y líquida de alta resolución (HPLC)</h4>
+<div class="mini-grid">
+<article><b>GC</b><p>La fase móvil es un gas portador. Se aplica a compuestos volátiles y termoestables. La separación ocurre en una columna y los analitos se detectan al salir de ella.</p></article>
+<article><b>HPLC</b><p>Una bomba impulsa la fase móvil líquida a través de una columna empacada. Es apropiada para numerosos compuestos no volátiles o termolábiles y permite trabajar con detectores UV-Vis, fluorescencia u otros.</p></article>
+</div>
+<h4>5. Parámetros para evaluar una separación</h4>
+<ul><li><b>Tiempo de retención (tR):</b> tiempo desde la inyección hasta el máximo del pico del analito.</li><li><b>Tiempo muerto (tM):</b> tiempo de paso de una especie no retenida.</li><li><b>Factor de retención (k'):</b> relaciona la retención del analito con el tiempo muerto.</li><li><b>Resolución (Rs):</b> expresa el grado de separación entre dos picos.</li><li><b> selectividad (α):</b> compara la retención relativa de dos analitos.</li><li><b>Eficiencia:</b> se relaciona con el ensanchamiento de banda y suele describirse mediante el número de platos teóricos.</li></ul>
+<div class="formula">α = k'₂ / k'₁ (para k'₂ mayor que k'₁)</div>
+<h4>6. Fuentes de error y buenas prácticas</h4>
+<p>Una muestra demasiado concentrada o aplicada en exceso produce manchas o picos anchos; una columna mal equilibrada puede generar tiempos de retención inestables; burbujas, fugas, variaciones de flujo, fase móvil mal preparada o una columna deteriorada afectan la reproducibilidad. Se debe registrar lote de columna, composición de fase móvil, flujo, temperatura, volumen de inyección, tiempos y resultados de aptitud del sistema.</p>
+<h4>7. Aplicación bioquímica y farmacéutica</h4>
+<p>En farmacia, HPLC se utiliza para valorar principios activos, impurezas, productos de degradación y perfiles de disolución. En bioquímica puede apoyar la determinación de vitaminas, aminoácidos, fármacos y metabolitos en matrices biológicas. La identificación debe sustentarse en estándares, tiempos de retención y, cuando corresponda, información espectral o confirmatoria.</p>
+<div class="note"><b>Conclusión del capítulo:</b> la cromatografía es una herramienta de separación versátil. Para obtener resultados confiables se debe seleccionar adecuadamente la fase móvil y estacionaria, optimizar las condiciones, evaluar la aptitud del sistema y comparar con materiales de referencia.</div>
+</div>
+<div class="quiz" data-answer="b" data-explain="La separación ocurre por la distribución diferencial de los analitos entre la fase móvil y la fase estacionaria."><b>1. ¿Qué explica principalmente la separación cromatográfica?</b><label><input name="q1" type="radio" value="a"/> El color de los compuestos</label><label><input name="q1" type="radio" value="b"/> La distinta afinidad por las dos fases</label><label><input name="q1" type="radio" value="c"/> La masa total de la muestra</label><button class="action">Comprobar</button><div class="feedback"></div></div>
+<div class="quiz" data-answer="a" data-explain="k' = (tR−tM)/tM = (8−2)/2 = 3."><b>2. Si tR=8 min y tM=2 min, ¿cuánto vale k'?</b><label><input name="q2" type="radio" value="a"/> 3</label><label><input name="q2" type="radio" value="b"/> 4</label><label><input name="q2" type="radio" value="c"/> 6</label><button class="action">Comprobar</button><div class="feedback"></div></div>
+</section>
+<section class="page" id="espectro">
+<span class="tag">Capítulo 02 · Stefany</span><h2>Espectrofotometría</h2><figure class="science-figure"><img alt="Esquema del recorrido óptico: fuente, selector de longitud de onda, cubeta y detector." loading="lazy" src="imagenes/espectrofotometro.svg"/><figcaption>Esquema conceptual; la configuración exacta depende del instrumento.</figcaption></figure>
+<p>La espectrofotometría estudia la interacción de la radiación electromagnética con la materia. En el análisis cuantitativo se mide la radiación absorbida por una muestra a una longitud de onda seleccionada y se relaciona la señal con la concentración del analito.</p>
+<h3>Fundamento: absorbancia y transmitancia</h3>
+<p>La transmitancia es la fracción de luz incidente que atraviesa la muestra: T = P/P₀. El porcentaje de transmitancia es %T = 100T. La absorbancia se define como:</p><div class="formula">A = log₁₀(P₀/P) = −log₁₀(T)</div>
+<p>Donde P₀ es la potencia radiante incidente y P la potencia transmitida. La absorbancia es adimensional.</p>
+<h3>Ley de Beer-Lambert</h3><div class="formula">A = ε · b · c</div>
+<p>ε es la absortividad molar, b la longitud del trayecto óptico y c la concentración molar. La relación es lineal bajo condiciones apropiadas: radiación suficientemente monocromática, soluciones homogéneas y diluidas, ausencia de reacciones o interferencias significativas y funcionamiento adecuado del instrumento.</p>
+<h3>Componentes del espectrofotómetro</h3><div class="grid"><div class="card"><b>Fuente de luz</b><p>Produce radiación en el intervalo espectral de trabajo.</p></div><div class="card"><b>Selector de longitud de onda</b><p>Filtro o monocromador que selecciona la región de radiación.</p></div><div class="card"><b>Compartimiento de muestra</b><p>Aloja la cubeta con blanco o muestra.</p></div><div class="card"><b>Detector y sistema de lectura</b><p>Convierte la radiación recibida en señal y presenta absorbancia o transmitancia.</p></div></div>
+<h3>Procedimiento general</h3><ol><li>Encender y verificar el equipo según el manual.</li><li>Seleccionar la longitud de onda indicada por el método.</li><li>Preparar blanco, estándares y muestras.</li><li>Limpiar la cubeta por fuera, evitar huellas en las caras ópticas y eliminar burbujas.</li><li>Ajustar con el blanco y medir estándares y muestras bajo las mismas condiciones.</li><li>Construir curva de calibración o aplicar el procedimiento validado.</li><li>Registrar longitud de onda, lecturas, unidades y condiciones.</li></ol>
+<h3>Ejercicio resuelto por comparación con estándar</h3><p>Si el método permite la proporcionalidad con estándar único, Cx = (Ax/Astd) × Cstd. Para Ax=0,36; Astd=0,24 y Cstd=50 mg/L:</p><div class="formula">Cx = (0,36 / 0,24) × 50 = 75 mg/L</div>
+<div class="callout">Esta comparación solo es válida si estándar y muestra se procesaron con el mismo método, condiciones y respuesta lineal. Si el método exige curva de calibración, se utiliza la ecuación de la curva.</div>
+<h3>Aplicaciones</h3><ul><li>Cuantificación de analitos que forman compuestos coloreados en química clínica.</li><li>Determinación de concentración de principios activos y control de calidad farmacéutico.</li><li>Seguimiento de reacciones enzimáticas mediante cambios de absorbancia.</li><li>Estudios de pureza, estabilidad y cinética de reacciones.</li></ul>
+<div class="chapter-extra">
+<h3>Desarrollo ampliado del capítulo</h3>
+<h4>1. Regiones del espectro y selección de longitud de onda</h4>
+<p>La espectrofotometría UV-Visible utiliza radiación ultravioleta y visible. La longitud de onda se selecciona de acuerdo con la absorción del analito o del producto coloreado de la reacción. Habitualmente se trabaja cerca de la longitud de onda de máxima absorción (λmáx), porque pequeños cambios de longitud de onda producen un efecto menor sobre la señal y se mejora la sensibilidad, siempre que el método lo indique.</p>
+<h4>2. Tipos de instrumentos y sistemas ópticos</h4>
+<div class="mini-grid">
+<article><b>Haz simple</b><p>La luz atraviesa blanco o muestra en mediciones separadas. Su diseño es sencillo.</p></article>
+<article><b>Doble haz</b><p>Compara la señal de muestra y referencia para compensar fluctuaciones de la fuente.</p></article>
+<article><b>Filtros</b><p>Seleccionan bandas de longitud de onda; son frecuentes en fotómetros clínicos.</p></article>
+<article><b>Monocromador</b><p>Dispersa la radiación y permite seleccionar una banda más estrecha.</p></article>
+</div>
+<h4>3. Ley de Beer-Lambert y sus condiciones</h4>
+<p>La absorbancia es proporcional a la concentración y al trayecto óptico cuando el sistema cumple las condiciones del método. La absortividad molar depende de la sustancia y de la longitud de onda. Si se duplica la concentración en el intervalo lineal, la absorbancia también se duplica, manteniendo constantes las demás condiciones.</p>
+<div class="formula">A = εbc    y    T = 10⁻ᴬ</div>
+<p>Las desviaciones pueden ser reales (interacciones químicas, asociación o disociación, cambios de pH) o instrumentales (radiación policromática, luz parásita, detector fuera de rango). También influyen turbidez, partículas, cubetas sucias y concentraciones fuera del intervalo lineal.</p>
+<h4>4. Curva de calibración</h4>
+<p>Se preparan varios estándares de concentración conocida, se mide su absorbancia y se representa absorbancia frente a concentración. En el intervalo lineal se ajusta una recta:</p>
+<div class="formula">A = mC + b    ;    C muestra = (A muestra − b) / m</div>
+<p>La pendiente m expresa la sensibilidad del método y el intercepto b representa la señal estimada cuando la concentración es cero. No basta con observar un R² alto: también se revisan residuos, rango, blancos, estándares y controles.</p>
+<h4>5. Blanco, calibrador y control</h4>
+<ul><li><b>Blanco:</b> contiene los componentes necesarios para corregir la señal de fondo, sin el analito o sin el componente que genera la señal, según el método.</li><li><b>Calibrador/estándar:</b> material con concentración asignada que establece la relación señal-concentración.</li><li><b>Control:</b> material independiente utilizado para vigilar que el método mantenga un desempeño aceptable.</li></ul>
+<h4>6. Aplicaciones en Bioquímica y Farmacia</h4>
+<p>En química clínica, muchos métodos colorimétricos cuantifican glucosa, urea, ácido úrico, colesterol y otros analitos. Enzimología, la variación de absorbancia puede seguir la velocidad de una reacción. En farmacia, la espectrofotometría puede apoyar la valoración de principios activos, uniformidad, disolución y estudios de estabilidad, siempre que el método sea selectivo y esté validado para la matriz.</p>
+<h4>7. Control de calidad y fuentes de error</h4>
+<p>Se comprueba el blanco, la linealidad, la repetibilidad, la estabilidad de la fuente, la longitud de onda y el desempeño del detector. Las cubetas deben ser compatibles con la región espectral; las de vidrio común no son adecuadas para toda medición UV. Las caras ópticas deben estar limpias, orientadas de forma consistente y libres de burbujas. La muestra debe estar homogénea y dentro del rango de lectura.</p>
+<div class="note"><b>Conclusión del capítulo:</b> la espectrofotometría transforma una señal óptica en información cuantitativa. La calidad del resultado depende de la selección correcta de longitud de onda, blanco, calibración, rango lineal y control de interferencias.</div>
+</div>
+<div class="quiz" data-answer="c" data-explain="La Ley de Beer-Lambert expresa A = εbc."><b>3. ¿Cuál es la expresión de Beer-Lambert?</b><label><input name="q3" type="radio" value="a"/> A = P/P₀</label><label><input name="q3" type="radio" value="b"/> A = ε/bc</label><label><input name="q3" type="radio" value="c"/> A = εbc</label><button class="action">Comprobar</button><div class="feedback"></div></div>
+<div class="quiz" data-answer="a" data-explain="Cx=(0,36/0,24)×50 mg/L = 75 mg/L."><b>4. Ax=0,36; Astd=0,24; Cstd=50 mg/L. ¿Cx?</b><label><input name="q4" type="radio" value="a"/> 75 mg/L</label><label><input name="q4" type="radio" value="b"/> 33,3 mg/L</label><label><input name="q4" type="radio" value="c"/> 50 mg/L</label><button class="action">Comprobar</button><div class="feedback"></div></div>
+</section>
+<section class="page" id="statfax">
+<span class="tag">Capítulo 03 · Anacris</span><h2>Analizadores Stat Fax</h2><figure class="science-figure"><img alt="Representación conceptual de los elementos funcionales de un fotómetro STAT FAX." loading="lazy" src="imagenes/statfax-esquema.svg"/><figcaption>No es un plano técnico del STAT FAX 1904 PLUS. Para identificar controles y componentes reales, consultar el manual del fabricante y el POE del laboratorio.</figcaption></figure>
+<h3>STAT FAX® 1904 PLUS</h3>
+<p>El STAT FAX® 1904 PLUS, fabricado por Awareness Technology, Inc., es un fotómetro de química clínica para diagnóstico in vitro, controlado por microprocesador. Según el POE de manejo de equipo utilizado en el laboratorio, trabaja con un sistema óptico bicromático y seis filtros de longitud de onda, y permite mediciones de absorbancia y cálculos de concentración o actividad mediante distintos modos de operación.</p>
+<div class="callout"><b>Fuente práctica:</b> POE de manejo de equipo, año 2026, “Espectrofotómetro GENESYS 30 y STAT FAX 1904 PLUS”. El POE describe el sistema óptico, filtros, modos de lectura, procedimientos, registros y acciones ante controles rechazados.</div>
+<h3>Fundamento fotométrico</h3><p>La muestra reacciona con reactivos específicos y puede producir un cambio de color o una señal óptica. El equipo mide la absorbancia. En condiciones definidas por el método, la señal se relaciona con la concentración del analito o con la velocidad de reacción.</p>
+<p>El sistema bicromático utiliza una longitud de onda principal y, cuando el método lo requiere, una longitud de onda diferencial para compensar interferencias del recipiente u otros componentes de la muestra.</p>
+<h3>Modos de operación y análisis</h3><table><tr><th>Modo</th><th>Uso general</th></tr><tr><td>Absorbancia</td><td>Lectura directa de la señal óptica.</td></tr><tr><td>Estándar</td><td>Calcula concentración comparando con un estándar conocido.</td></tr><tr><td>Factor</td><td>Multiplica la señal por un factor establecido por el método.</td></tr><tr><td>Multipunto</td><td>Utiliza varios calibradores para generar una curva.</td></tr><tr><td>RATE / cinético</td><td>Registra el cambio de absorbancia durante un intervalo para estimar velocidad de reacción.</td></tr><tr><td>Punto final</td><td>Mide la absorbancia una vez desarrollada la reacción en el tiempo indicado.</td></tr></table>
+<h3>Componentes y funciones</h3><ul><li><b>Sistema óptico:</b> fuente de luz y filtros para seleccionar la longitud de onda.</li><li><b>Área de lectura:</b> posición donde se introduce el tubo de reacción.</li><li><b>Sistema de incubación:</b> mantiene las condiciones de temperatura requeridas por los métodos compatibles.</li><li><b>Pantalla y teclado:</b> permiten programar pruebas y visualizar resultados.</li><li><b>Microprocesador:</b> controla las funciones y realiza cálculos configurados.</li></ul>
+<h3>Procedimiento operativo resumido</h3><ol><li>Verificar limpieza, conexión, área de lectura, tubos y estado general del equipo.</li><li>Encender y confirmar que el equipo no presente errores.</li><li>Seleccionar el método, modo de operación y filtro requerido.</li><li>Configurar filtro diferencial, tiempo de espera y tiempo de lectura si corresponde.</li><li>Introducir estándar o factor según el método.</li><li>Preparar blanco, reactivos, controles y muestras siguiendo el inserto.</li><li>Procesar calibradores y controles; no aceptar resultados de pacientes si el control no cumple los criterios establecidos.</li><li>Leer las muestras y registrar resultado, unidad, método, fecha, operador y observaciones.</li><li>Retirar tubos, limpiar derrames, revisar el área de lectura y apagar según el procedimiento del laboratorio.</li></ol>
+<h3>Ejemplo de cálculo con estándar</h3><p>Cuando el método está configurado para comparación con estándar único y la respuesta es proporcional:</p><div class="formula">Concentración muestra = (Absorbancia muestra / Absorbancia estándar) × Concentración estándar</div><p>Si A muestra = 0,30; A estándar = 0,20 y el estándar = 100 mg/dL:</p><div class="formula">(0,30 / 0,20) × 100 = 150 mg/dL</div>
+<div class="callout"><b>Importante:</b> el ejemplo ilustra la relación matemática. En la práctica se debe utilizar el modo de cálculo, calibrador, factor, blanco, filtro y tiempos establecidos por el método específico.</div>
+<h3>Aplicaciones en laboratorio clínico</h3><p>Según el método y los reactivos compatibles, los fotómetros de química clínica pueden emplearse en determinaciones colorimétricas o cinéticas como glucosa, urea, creatinina, ácido úrico, colesterol y actividades enzimáticas. La prueba concreta depende del reactivo y de su inserto, no únicamente del equipo.</p>
+<h3>Interpretación y registros</h3><p>Para interpretar un resultado se consideran longitud de onda, filtro diferencial, blanco, estándar o factor, incubación, temperatura, tiempo de lectura, calidad de muestra, rango de trabajo, interferencias y resultados de control. El POE recomienda conservar código de muestra, fecha y hora, prueba, resultado, unidades, operador, equipo, método, observaciones y validación.</p>
+<div class="chapter-extra">
+<h3>Desarrollo ampliado del capítulo</h3>
+<h4>1. Identificación y principio del equipo</h4>
+<p>El STAT FAX® 1904 PLUS de Awareness Technology es un fotómetro de química clínica para diagnóstico in vitro, controlado por microprocesador. El POE de laboratorio describe un sistema óptico bicromático y seis filtros estándar: 340, 405, 450, 505, 545 y 600 nm. El filtro que se selecciona depende del método y del inserto del reactivo; no se debe elegir una longitud de onda por costumbre.</p>
+<h4>2. Componentes funcionales</h4>
+<ul><li><b>Fuente de radiación y sistema óptico:</b> proporcionan y conducen la luz utilizada para medir absorbancia.</li><li><b>Filtros:</b> seleccionan la longitud de onda principal y, si el método lo requiere, la diferencial.</li><li><b>Compartimiento de lectura:</b> recibe el tubo de reacción en la posición indicada.</li><li><b>Sistema de incubación:</b> permite mantener condiciones térmicas requeridas por los métodos compatibles.</li><li><b>Pantalla y teclado:</b> permiten seleccionar parámetros, introducir datos y visualizar resultados.</li><li><b>Microprocesador:</b> coordina la operación y ejecuta los cálculos configurados.</li></ul>
+<h4>3. Lectura bicromática</h4>
+<p>En una lectura bicromática se utiliza una longitud de onda principal para medir la señal de interés y una longitud de onda diferencial cuando el método lo establece. La segunda lectura puede ayudar a compensar absorbancia de fondo debida al recipiente o a componentes de la muestra. No sustituye la preparación correcta del blanco ni elimina todas las interferencias.</p>
+<h4>4. Modos y cálculos</h4>
+<table><tr><th>Modo</th><th>Qué realiza</th><th>Aplicación general</th></tr>
+<tr><td>Absorbancia</td><td>Presenta la señal óptica medida.</td><td>Verificación o lectura directa.</td></tr>
+<tr><td>Estándar</td><td>Relaciona absorbancia de muestra con la de un estándar.</td><td>Métodos de estándar único.</td></tr>
+<tr><td>Factor</td><td>Multiplica la señal por un factor definido.</td><td>Métodos cuyo inserto proporciona factor.</td></tr>
+<tr><td>Multipunto</td><td>Utiliza varios calibradores para una curva.</td><td>Cuantificación en un intervalo de concentración.</td></tr>
+<tr><td>Punto final</td><td>Lee tras el tiempo de reacción indicado.</td><td>Reacciones colorimétricas de punto final.</td></tr>
+<tr><td>RATE</td><td>Registra el cambio de absorbancia en el tiempo.</td><td>Determinaciones cinéticas/enzimáticas.</td></tr></table>
+<h4>5. Secuencia de trabajo y preparación</h4>
+<ol><li>Verificar conexión eléctrica y selección de voltaje según el suministro.</li><li>Encender el equipo y esperar el inicio del sistema; comprobar que no existan mensajes de error.</li><li>Revisar limpieza, área de lectura y condiciones de temperatura cuando exista incubación.</li><li>Seleccionar modo, filtro principal y filtro diferencial si corresponde.</li><li>Introducir parámetros del método: tiempos, estándar o factor y demás condiciones.</li><li>Preparar blanco, calibradores, controles y muestras siguiendo el inserto del reactivo.</li><li>Leer el blanco y comprobar la lectura; continuar con calibración y controles.</li><li>Aceptar resultados de pacientes únicamente cuando el control de calidad cumpla los criterios establecidos.</li><li>Al finalizar, retirar tubos, limpiar derrames, revisar el área, registrar resultados y apagar según el POE.</li></ol>
+<h4>6. Calibración y verificación</h4>
+<p>La calibración puede realizarse mediante estándar único, factor o varios puntos, según el método. La selección debe respetar el inserto del reactivo y el rango de medición. El POE menciona REDI-CHECK® como material para verificar el desempeño fotométrico y la linealidad. Esta verificación no reemplaza el control interno de cada corrida.</p>
+<h4>7. Aplicaciones y limitaciones</h4>
+<p>El equipo puede emplearse en ensayos colorimétricos de punto final y cinéticos compatibles con sus características. La prueba concreta (por ejemplo, glucosa, urea, creatinina, ácido úrico o actividad enzimática) depende del reactivo, el método, la longitud de onda, los tiempos y la calibración indicada. El fotómetro no identifica por sí solo el analito ni corrige una muestra mal recolectada.</p>
+<h4>8. Errores frecuentes y mantenimiento básico</h4>
+<p>Entre los problemas que afectan la medición se encuentran tubos sucios o rayados, burbujas, volumen incorrecto, blanco mal preparado, filtro equivocado, tiempos de lectura incumplidos, temperatura inadecuada, reactivos vencidos y calibración incorrecta. Se deben documentar las incidencias, mantener limpio el compartimiento y realizar las verificaciones indicadas por el manual y el POE.</p>
+<div class="note"><b>Conclusión del capítulo:</b> el STAT FAX 1904 PLUS permite obtener mediciones fotométricas útiles en química clínica, pero la confiabilidad depende del método, la calibración, el blanco, los controles, la correcta manipulación de tubos y el registro trazable.</div>
+</div>
+<div class="quiz" data-answer="b" data-explain="El POE identifica el STAT FAX 1904 PLUS como fotómetro bicromático con seis filtros."><b>5. Según el POE, ¿qué sistema óptico utiliza el STAT FAX 1904 PLUS?</b><label><input name="q5" type="radio" value="a"/> Monocromático con un filtro</label><label><input name="q5" type="radio" value="b"/> Bicromático con seis filtros</label><label><input name="q5" type="radio" value="c"/> Fluorimétrico sin filtros</label><button class="action">Comprobar</button><div class="feedback"></div></div>
+<div class="quiz" data-answer="c" data-explain="El modo RATE sigue el cambio de absorbancia en el tiempo para estimar la velocidad de reacción."><b>6. ¿Qué modo se utiliza para seguir una reacción cinética?</b><label><input name="q6" type="radio" value="a"/> Punto final</label><label><input name="q6" type="radio" value="b"/> Blanco</label><label><input name="q6" type="radio" value="c"/> RATE</label><button class="action">Comprobar</button><div class="feedback"></div></div>
+</section>
+<section class="page" id="calidad">
+<span class="tag">Capítulo 04 · Milenka</span><h2>Control de calidad analítico</h2><figure class="science-figure"><img alt="Gráfico de Levey–Jennings con media y límites de una, dos y tres desviaciones estándar." loading="lazy" src="imagenes/levey-jennings.svg"/><figcaption>Serie simulada con fines didácticos; no representa resultados de control de un laboratorio.</figcaption></figure>
+<p>El control de calidad analítico comprende actividades planificadas para vigilar el desempeño del proceso de medición y detectar errores que puedan afectar la confiabilidad de los resultados. Incluye calibración, control interno, evaluación externa, análisis estadístico, interpretación de gráficos y acciones correctivas.</p>
+<h3>Calibrador y material de control</h3><table><tr><th>Calibrador</th><th>Material de control</th></tr><tr><td>Establece la relación entre señal y concentración o ajusta el sistema según el método.</td><td>Evalúa si el sistema mantiene un desempeño aceptable durante la rutina.</td></tr><tr><td>Posee valores asignados para calibrar.</td><td>Posee intervalos o valores esperados para verificar resultados.</td></tr></table>
+<h3>Precisión y exactitud</h3><div class="grid"><div class="card"><b>Precisión</b><p>Grado de concordancia entre mediciones repetidas. Se relaciona con la dispersión aleatoria.</p></div><div class="card"><b>Exactitud</b><p>Proximidad del resultado al valor verdadero o de referencia; se evalúa mediante sesgo y otras comparaciones.</p></div></div>
+<h3>Estadística básica</h3><div class="formula">Media: x̄ = Σxi / n</div><div class="formula">Desviación estándar muestral: s = √[Σ(xi−x̄)²/(n−1)]</div><div class="formula">Coeficiente de variación: CV% = (s / x̄) × 100</div><div class="formula">Sesgo% = [(media − valor asignado) / valor asignado] × 100</div>
+<h3>Ejercicio resuelto</h3><p>Resultados de un control: 100, 102, 104, 102 y 102 mg/dL. La media es 102 mg/dL. La desviación estándar muestral es 1,41 mg/dL y CV = (1,41/102)×100 = <b>1,38 %</b>. Si el valor asignado es 100 mg/dL, el sesgo porcentual es [(102−100)/100]×100 = <b>+2 %</b>.</p>
+<h3>Gráfico de Levey-Jennings</h3><p>Representa los resultados de control a lo largo del tiempo. La línea central corresponde a la media y las líneas de referencia se sitúan habitualmente a ±1, ±2 y ±3 desviaciones estándar. Permite observar tendencias, desplazamientos y resultados fuera de límites.</p>
+<h3>Reglas de Westgard frecuentes</h3><table><tr><th>Regla</th><th>Interpretación general</th></tr><tr><td>1₂s</td><td>Una observación supera ±2 DE; suele funcionar como advertencia, no rechazo aislado en el esquema multirregla clásico.</td></tr><tr><td>1₃s</td><td>Una observación supera ±3 DE; señal de rechazo.</td></tr><tr><td>2₂s</td><td>Dos resultados consecutivos superan 2 DE del mismo lado; sugiere error sistemático.</td></tr><tr><td>R₄s</td><td>Dos resultados en una misma corrida difieren en 4 DE; sugiere error aleatorio.</td></tr><tr><td>4₁s</td><td>Cuatro resultados consecutivos superan 1 DE del mismo lado; sugiere error sistemático.</td></tr><tr><td>10x</td><td>Diez resultados consecutivos quedan del mismo lado de la media; sugiere desplazamiento.</td></tr></table>
+<h3>Acciones correctivas ante control rechazado</h3><ol><li>Detener la validación/liberación de resultados afectados.</li><li>Revisar preparación, conservación y vencimiento de reactivos y controles.</li><li>Verificar calibración, estándar, blanco, pipeteo y programación.</li><li>Comprobar longitud de onda, filtro, temperatura, tiempos y limpieza de tubos/área de lectura.</li><li>Repetir el control después de corregir la causa; recalibrar si el procedimiento lo justifica.</li><li>Documentar la incidencia, causa probable, acción tomada y resultado de la verificación.</li></ol>
+<h3>Control de calidad aplicado al Stat Fax 1904 Plus</h3><p>El POE de laboratorio contempla verificación previa del estado del equipo, limpieza del área de lectura, comprobación de filtros y sistema de incubación, uso de blanco, calibración mediante estándar, factor o multipunto, procesamiento de controles y registro de resultados. También menciona REDI-CHECK para verificar desempeño fotométrico y linealidad, conforme al procedimiento del laboratorio.</p>
+<div class="callout"><b>Regla esencial:</b> un control fuera de los límites de aceptación exige investigar la causa antes de liberar resultados de pacientes. No se debe “corregir” un resultado de control eliminándolo sin investigar y documentar.</div>
+<div class="chapter-extra">
+<h3>Desarrollo ampliado del capítulo</h3>
+<h4>1. Objetivo del control de calidad analítico</h4>
+<p>El control de calidad permite detectar cambios en el desempeño del sistema de medición antes de que afecten la interpretación clínica. Se aplica al conjunto formado por equipo, reactivos, calibradores, controles, operador, condiciones ambientales y procedimiento. Un resultado numérico no es confiable solo porque el equipo lo haya calculado: debe cumplir criterios de calidad definidos.</p>
+<h4>2. Control interno y evaluación externa</h4>
+<div class="mini-grid">
+<article><b>Control interno</b><p>Se procesa material de control en la rutina y se comparan los resultados con límites establecidos. Permite detectar errores aleatorios y sistemáticos.</p></article>
+<article><b>Evaluación externa</b><p>Se comparan resultados de muestras desconocidas con valores asignados o con otros laboratorios para evaluar comparabilidad y desempeño.</p></article>
+</div>
+<h4>3. Calibración frente a control</h4>
+<p>La calibración establece o ajusta la relación entre señal y concentración. El control verifica que el sistema continúe funcionando dentro de límites aceptables. Un calibrador no debe utilizarse como sustituto del material de control, porque ambos cumplen funciones diferentes.</p>
+<h4>4. Precisión, exactitud, veracidad y sesgo</h4>
+<p>La precisión describe la cercanía entre resultados repetidos y se relaciona con la dispersión. La veracidad expresa la cercanía de la media de muchas mediciones a un valor de referencia. La exactitud integra la concordancia global con el valor verdadero y depende de componentes aleatorios y sistemáticos. El sesgo es la diferencia sistemática entre el promedio observado y el valor asignado.</p>
+<h4>5. Estadística de control</h4>
+<div class="formula">Media (x̄) = Σxi / n</div>
+<div class="formula">s = √[Σ(xi − x̄)² / (n − 1)]</div>
+<div class="formula">CV% = (s / x̄) × 100</div>
+<div class="formula">Sesgo% = [(x̄ − valor asignado) / valor asignado] × 100</div>
+<p>El CV permite comparar la imprecisión relativa entre métodos o concentraciones, pero siempre debe interpretarse con los requisitos de calidad del analito. Un CV pequeño no garantiza ausencia de sesgo.</p>
+<h4>6. Gráfico de Levey-Jennings</h4>
+<p>Se representa cada resultado de control en orden cronológico. La media es la línea central; las líneas de ±1, ±2 y ±3 desviaciones estándar ayudan a reconocer patrones. Un punto aislado puede ser aleatorio; una secuencia sostenida hacia un lado o una tendencia progresiva puede revelar un desplazamiento o deterioro gradual.</p>
+<h4>7. Reglas de Westgard</h4>
+<ul><li><b>1₂s:</b> un resultado supera ±2 DE; señal de advertencia en el esquema multirregla clásico.</li><li><b>1₃s:</b> un resultado supera ±3 DE; regla de rechazo.</li><li><b>2₂s:</b> dos resultados consecutivos exceden 2 DE del mismo lado; posible error sistemático.</li><li><b>R₄s:</b> diferencia de 4 DE entre dos resultados dentro de una corrida; posible error aleatorio.</li><li><b>4₁s:</b> cuatro resultados consecutivos exceden 1 DE del mismo lado; posible error sistemático.</li><li><b>10x:</b> diez resultados consecutivos permanecen al mismo lado de la media; posible desplazamiento.</li></ul>
+<p>Las reglas se aplican de acuerdo con el diseño del procedimiento de control, el número de niveles y la frecuencia de medición. No deben utilizarse mecánicamente sin considerar el contexto del laboratorio.</p>
+<h4>8. Errores preanalíticos, analíticos y postanalíticos</h4>
+<table><tr><th>Etapa</th><th>Ejemplos</th><th>Prevención</th></tr><tr><td>Preanalítica</td><td>Identificación incorrecta, tubo inadecuado, hemólisis, conservación o transporte incorrectos.</td><td>Identificación positiva, criterios de rechazo, capacitación y trazabilidad.</td></tr><tr><td>Analítica</td><td>Reactivo vencido, calibración incorrecta, pipeteo, temperatura o longitud de onda inadecuadas.</td><td>POE, mantenimiento, calibración y controles internos.</td></tr><tr><td>Postanalítica</td><td>Transcripción, unidad o intervalo de referencia equivocado, demora en informar.</td><td>Validación, revisión de resultados y sistema de registro seguro.</td></tr></table>
+<h4>9. Acciones correctivas y documentación</h4>
+<p>Ante un control rechazado se debe detener la liberación de resultados afectados, revisar reactivos y controles, verificar blanco, calibración, pipetas, filtro, temperatura, tiempos y limpieza, repetir el control después de corregir la causa y documentar lo ocurrido. No se debe borrar un punto desfavorable sin investigación ni excluirlo solo para que el gráfico “se vea bien”.</p>
+<h4>10. Control aplicado al STAT FAX 1904 PLUS</h4>
+<p>La guía del laboratorio incluye verificación del estado del equipo, selección de filtro, lectura del blanco, calibración por estándar/factor/multipunto y procesamiento de controles. También contempla REDI-CHECK® para verificar desempeño fotométrico y linealidad. Si el control no cumple, se investiga antes de aceptar resultados.</p>
+<div class="note"><b>Conclusión del capítulo:</b> el control de calidad es un proceso continuo. La estadística, los gráficos y las reglas permiten detectar problemas, pero la confiabilidad depende de investigar, corregir y documentar cada desviación.</div>
+</div>
+<div class="quiz" data-answer="a" data-explain="El CV expresa la desviación estándar como porcentaje de la media y se utiliza como indicador de imprecisión relativa."><b>7. ¿Qué expresa el coeficiente de variación?</b><label><input name="q7" type="radio" value="a"/> La dispersión relativa respecto a la media</label><label><input name="q7" type="radio" value="b"/> La concentración del calibrador</label><label><input name="q7" type="radio" value="c"/> La longitud de onda</label><button class="action">Comprobar</button><div class="feedback"></div></div>
+<div class="quiz" data-answer="b" data-explain="Una regla 1₃s indica que un resultado supera tres desviaciones estándar y normalmente implica rechazo de la corrida."><b>8. ¿Qué indica la regla 1₃s?</b><label><input name="q8" type="radio" value="a"/> Diez resultados al mismo lado de la media</label><label><input name="q8" type="radio" value="b"/> Un resultado supera ±3 DE</label><label><input name="q8" type="radio" value="c"/> Dos resultados difieren en 4 DE</label><button class="action">Comprobar</button><div class="feedback"></div></div>
+</section>
+<section class="page" id="juegos">
+<span class="tag">Aprendizaje interactivo · 8 desafíos</span>
+<h2>Juegos y actividades</h2>
+<p>Ocho actividades variadas para aplicar lo estudiado. Cada una entrega retroalimentación inmediata. Realiza las actividades después de leer los capítulos.</p>
+<div class="game-card" id="g1">
+<h3>Juego 1 · Une los conceptos cromatográficos</h3>
+<p>Relaciona cada término con su definición.</p>
+<div class="pair-row"><span>Fase estacionaria</span><select data-correct="a"><option value="">Selecciona…</option><option value="a">Permanece fija en el sistema</option><option value="b">Fluido que transporta analitos</option><option value="c">Distancia relativa recorrida</option></select></div>
+<div class="pair-row"><span>Fase móvil</span><select data-correct="b"><option value="">Selecciona…</option><option value="a">Permanece fija en el sistema</option><option value="b">Fluido que transporta analitos</option><option value="c">Distancia relativa recorrida</option></select></div>
+<div class="pair-row"><span>Rf</span><select data-correct="c"><option value="">Selecciona…</option><option value="a">Permanece fija en el sistema</option><option value="b">Fluido que transporta analitos</option><option value="c">Distancia relativa recorrida</option></select></div>
+<button class="action" onclick="checkSelectGame('g1')">Comprobar</button><div class="game-feedback"></div>
+</div>
+<div class="game-card" id="g2">
+<h3>Juego 2 · Calcula el Rf</h3>
+<p>Una mancha recorrió 3,0 cm y el frente del disolvente 6,0 cm. ¿Cuál es el Rf?</p>
+<input id="rfAnswer" placeholder="Escribe el valor" step="0.01" type="number"/>
+<button class="action" onclick="checkNumber('rfAnswer',0.5,'g2','Rf = 3,0 / 6,0 = 0,50. El valor es adimensional.')">Comprobar</button><div class="game-feedback"></div>
+</div>
+<div class="game-card" id="g3">
+<h3>Juego 3 · Verdadero o falso: espectrofotometría</h3>
+<p>La absorbancia aumenta cuando aumenta la concentración, si se mantienen las condiciones y se trabaja dentro del intervalo lineal de Beer-Lambert.</p>
+<select id="vfAnswer"><option value="">Selecciona…</option><option value="v">Verdadero</option><option value="f">Falso</option></select>
+<button class="action" onclick="checkChoice('vfAnswer','v','g3','Correcto: A = εbc; con ε y b constantes, A es proporcional a c en el intervalo lineal.')">Comprobar</button><div class="game-feedback"></div>
+</div>
+<div class="game-card" id="g4">
+<h3>Juego 4 · Ordena el procedimiento del fotómetro</h3>
+<p>Selecciona el orden correcto de las etapas esenciales (1 a 4).</p>
+<div class="pair-row"><span>Seleccionar método y longitud de onda</span><select data-order="2"><option value="">Orden…</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+<div class="pair-row"><span>Verificar equipo y encender</span><select data-order="1"><option value="">Orden…</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+<div class="pair-row"><span>Leer blanco y calibrar según método</span><select data-order="3"><option value="">Orden…</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+<div class="pair-row"><span>Procesar controles y luego muestras</span><select data-order="4"><option value="">Orden…</option><option>1</option><option>2</option><option>3</option><option>4</option></select></div>
+<button class="action" onclick="checkOrder('g4')">Comprobar</button><div class="game-feedback"></div>
+</div>
+<div class="game-card" id="g5">
+<h3>Juego 5 · Identifica el modo STAT FAX</h3>
+<p>El laboratorio necesita seguir el cambio de absorbancia durante un intervalo para calcular la velocidad de una reacción enzimática. ¿Qué modo corresponde?</p>
+<select id="modeAnswer"><option value="">Selecciona…</option><option value="end">Punto final</option><option value="rate">RATE / cinético</option><option value="blank">Blanco</option></select>
+<button class="action" onclick="checkChoice('modeAnswer','rate','g5','Correcto: RATE registra el cambio de absorbancia en el tiempo y permite estimar la velocidad de reacción.')">Comprobar</button><div class="game-feedback"></div>
+</div>
+<div class="game-card" id="g6">
+<h3>Juego 6 · Calcula el coeficiente de variación</h3>
+<p>Un control tiene media de 100 mg/dL y desviación estándar de 2 mg/dL. Calcula el CV%.</p>
+<input id="cvAnswer" placeholder="CV en porcentaje" step="0.1" type="number"/>
+<button class="action" onclick="checkNumber('cvAnswer',2,'g6','CV% = (2 / 100) × 100 = 2 %.')">Comprobar</button><div class="game-feedback"></div>
+</div>
+<div class="game-card" id="g7">
+<h3>Juego 7 · Detecta la regla de Westgard</h3>
+<p>Dos controles consecutivos superan +2 DE y están del mismo lado de la media. ¿Qué regla se activa?</p>
+<select id="westgardAnswer"><option value="">Selecciona…</option><option value="12s">1₂s</option><option value="22s">2₂s</option><option value="R4s">R₄s</option><option value="10x">10x</option></select>
+<button class="action" onclick="checkChoice('westgardAnswer','22s','g7','Correcto: 2₂s se presenta cuando dos resultados consecutivos superan 2 DE del mismo lado; sugiere error sistemático.')">Comprobar</button><div class="game-feedback"></div>
+</div>
+<div class="game-card" id="g8">
+<h3>Juego 8 · Caso integrador: ¿liberas el resultado?</h3>
+<p>El control interno de una corrida queda fuera del límite de aceptación. El equipo ya calculó las concentraciones de las muestras de pacientes. ¿Qué decisión es correcta?</p>
+<select id="caseAnswer"><option value="">Selecciona…</option><option value="release">Liberar los resultados porque el equipo los calculó</option><option value="stop">Detener la liberación, investigar la causa, corregir y verificar el control</option><option value="delete">Eliminar el punto de control y continuar</option></select>
+<button class="action" onclick="checkChoice('caseAnswer','stop','g8','Correcto: no se liberan resultados afectados hasta investigar la causa, aplicar acciones correctivas y demostrar que el control vuelve a cumplir.')">Comprobar</button><div class="game-feedback"></div>
+</div>
+<div class="hero"><h3>Reto final completado</h3><p>Al terminar, revisa las explicaciones y vuelve al capítulo correspondiente si necesitas reforzar algún tema. La autoevaluación no reemplaza la validación de los procedimientos con la docente y los manuales de laboratorio.</p></div>
+</section>
+<section class="page" id="fuentes">
+<span class="tag">Consulta y verificación</span><h2>Bibliografía y recursos</h2>
+<ul class="reference-list"><li>International Union of Pure and Applied Chemistry (IUPAC). (2025). <i>Compendium of Chemical Terminology (the Gold Book), 5th ed.: “chromatography”. </i><a href="https://goldbook.iupac.org/terms/view/C01075.html" rel="noopener noreferrer" target="_blank"> Consultar fuente</a></li><li>International Union of Pure and Applied Chemistry (IUPAC). (2025). <i>Compendium of Chemical Terminology (the Gold Book), 5th ed.: “retention factor”. </i><a href="https://goldbook.iupac.org/terms/view/R05359.html" rel="noopener noreferrer" target="_blank"> Consultar fuente</a></li><li>Skoog, D. A., Holler, F. J., &amp; Crouch, S. R. (2018). <i>Principles of Instrumental Analysis (7th ed.). Cengage Learning. ISBN 978-1-305-57721-3. </i><a href="https://www.cengage.com/c/principles-of-instrumental-analysis-7e-skoog-holler-crouch/9781305577213/" rel="noopener noreferrer" target="_blank"> Consultar fuente</a></li><li>Harris, D. C., &amp; Lucy, C. A. (2020). <i>Quantitative Chemical Analysis (10th ed.). Macmillan Learning / W. H. Freeman. ISBN 978-1-319-16430-0. </i><a href="https://books.google.com/books?id=NnPKxgEACAAJ" rel="noopener noreferrer" target="_blank"> Consultar fuente</a></li><li>Clinical and Laboratory Standards Institute (CLSI). (2016). <i>C24: Statistical Quality Control for Quantitative Measurement Procedures: Principles and Definitions (4th ed.). </i><a href="https://clsi.org/shop/standards/c24/" rel="noopener noreferrer" target="_blank"> Consultar fuente</a></li><li>World Health Organization. (2011). <i>Laboratory Quality Management System: Handbook. ISBN 978-92-4-154827-4. </i><a href="https://www.who.int/publications/i/item/9789241548274" rel="noopener noreferrer" target="_blank"> Consultar fuente</a></li><li>Awareness Technology, Inc. (2020). <i>STAT FAX® 1904 PLUS Analyzer: User Manual. Document 1904S, Revision F. Referencia del manual indicado en el POE de laboratorio. </i></li><li>Equipo de trabajo. (2026). <i>POE de manejo del espectrofotómetro GENESYS 30 y analizador STAT FAX 1904 PLUS. Material interno de práctica proporcionado para la asignatura. </i></li></ul>
+<div class="callout"><b>Criterio de uso y autoría: </b>Las ilustraciones de esta biblioteca son esquemas didácticos originales elaborados para explicar los principios; no son fotografías ni planos técnicos de equipos. Los datos del STAT FAX deben contrastarse con el manual del fabricante y el POE vigente. El POE se cita como material interno del curso; completen el nombre institucional y la fecha exacta que figuran en su portada. Incluyan en la defensa qué fuentes consultó cada integrante y qué contenidos verificó.</div>
+</section>
+</main>
+<footer>Química Analítica III Digital · Evaluación continua · Hito 4<br/>Recurso educativo elaborado para estudio académico. Aplicar siempre los procedimientos validados del laboratorio.</footer>
+<script>
+const navButtons=[...document.querySelectorAll('nav button')];
+function showPage(id){document.querySelectorAll('section.page').forEach(s=>s.classList.toggle('active',s.id===id));navButtons.forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'});}
+navButtons.forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+document.querySelectorAll('.quiz').forEach(q=>{q.querySelector('button').addEventListener('click',()=>{const chosen=q.querySelector('input:checked');const f=q.querySelector('.feedback');if(!chosen){f.textContent='Selecciona una respuesta antes de comprobar.';f.className='feedback wrong';return;}const ok=chosen.value===q.dataset.answer;f.textContent=(ok?'¡Correcto! ':'No es correcto. ')+q.dataset.explain;f.className='feedback '+(ok?'correct':'wrong');});});
+
+function setGameFeedback(id,msg,ok){const el=document.querySelector('#'+id+' .game-feedback');el.textContent=msg;el.className='game-feedback '+(ok?'ok':'no');}
+function checkSelectGame(id){const selects=[...document.querySelectorAll('#'+id+' select')];if(selects.some(s=>!s.value)){setGameFeedback(id,'Completa todas las relaciones antes de comprobar.',false);return;}const ok=selects.every(s=>s.value===s.dataset.correct);setGameFeedback(id,ok?'¡Excelente! Relacionaste correctamente los tres conceptos.':'Hay una o más relaciones incorrectas. Repasa las definiciones del capítulo de Cromatografía.',ok);}
+function checkNumber(inputId,expected,gameId,explain){const el=document.getElementById(inputId);if(el.value===''){setGameFeedback(gameId,'Escribe un resultado antes de comprobar.',false);return;}const ok=Math.abs(Number(el.value)-expected)<0.011;setGameFeedback(gameId,ok?'¡Correcto! '+explain:'Revisa la fórmula y las unidades. '+explain,ok);}
+function checkChoice(inputId,expected,gameId,explain){const el=document.getElementById(inputId);if(!el.value){setGameFeedback(gameId,'Selecciona una opción antes de comprobar.',false);return;}const ok=el.value===expected;setGameFeedback(gameId,(ok?'¡Correcto! ':'No es correcto. ')+explain,ok);}
+function checkOrder(id){const selects=[...document.querySelectorAll('#'+id+' select')];if(selects.some(s=>!s.value)){setGameFeedback(id,'Asigna un número a cada etapa.',false);return;}const ok=selects.every(s=>s.value===s.dataset.order);setGameFeedback(id,ok?'¡Muy bien! El procedimiento está ordenado correctamente.':'Revisa la secuencia: primero se verifica el equipo, después se programa, se lee el blanco/calibra y finalmente se procesan controles y muestras.',ok);}
+
+</script>
+</body></html>

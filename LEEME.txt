@@ -1,0 +1,26 @@
+BIBLIOTECA QUÍMICA ANALÍTICA III – VERSIÓN PREPARADA PARA PUBLICACIÓN
+
+ARCHIVOS
+- index.html: página principal.
+- imagenes/: cuatro esquemas científicos originales (cromatograma, recorrido óptico, esquema conceptual STAT FAX y gráfico Levey–Jennings).
+- banco_preguntas.txt: respuestas resumidas de las ocho actividades.
+- informe_breve.txt: descripción del recurso.
+
+PRUEBA LOCAL
+1. Extrae la carpeta completa.
+2. Abre index.html con Chrome, Edge o Firefox.
+3. Comprueba los cuatro capítulos, las imágenes, los botones de navegación y los ocho juegos.
+4. No muevas index.html fuera de esta carpeta: necesita la subcarpeta imagenes.
+
+PUBLICACIÓN GRATUITA CON NETLIFY DROP
+1. Entra en https://app.netlify.com/drop.
+2. Arrastra la carpeta completa biblioteca_quimica_analitica_iii (no solo index.html) a la zona de publicación. Si Netlify solicita iniciar sesión, crea o inicia tu cuenta.
+3. Espera a que termine la publicación. Netlify mostrará una dirección que termina en netlify.app.
+4. Abre esa dirección en una ventana privada/incógnito y desde un teléfono para comprobar que es pública y adaptable.
+5. Copia el enlace final y colócalo en el informe y en la entrega. No entregues la dirección de vista previa local del computador.
+
+ACTUALIZAR LA PÁGINA
+Si haces cambios, arrastra nuevamente la carpeta completa al área de despliegue del mismo proyecto en Netlify.
+
+IMPORTANTE
+La publicación pública aún requiere que una persona del equipo realice el paso de arrastrar la carpeta y comparta el enlace resultante. No se ha creado una cuenta ni se ha publicado desde este archivo.

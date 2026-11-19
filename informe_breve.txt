@@ -1,0 +1,14 @@
+INFORME BREVE
+Química Analítica III Digital – Biblioteca científica interactiva
+
+La biblioteca organiza cuatro módulos: Cromatografía, Espectrofotometría, Analizadores STAT FAX 1904 PLUS y Control de Calidad Analítico. Cada capítulo presenta fundamentos, clasificación o componentes, procedimientos, aplicaciones en Bioquímica y Farmacia, ejemplos y autoevaluación.
+
+La sección de actividades incorpora ocho desafíos variados: asociación de conceptos, cálculo de Rf, verdadero/falso, ordenamiento de procedimiento, selección del modo RATE, cálculo de CV, identificación de regla Westgard y resolución de un caso integrador de control de calidad. Cada juego ofrece retroalimentación.
+
+Se añadieron cuatro recursos visuales originales de carácter didáctico: cromatograma con dos picos, recorrido óptico básico de un espectrofotómetro, esquema conceptual de un fotómetro STAT FAX y gráfico de Levey–Jennings con datos simulados. Las ilustraciones no sustituyen fotografías ni diagramas técnicos del fabricante.
+
+La página fue elaborada en HTML, CSS y JavaScript, con recursos locales en la carpeta imagenes, para permitir consulta sin registro y adaptarse a pantallas de computadora y dispositivos móviles. El contenido sobre STAT FAX 1904 PLUS debe contrastarse con el manual del fabricante y el POE vigente del laboratorio.
+
+La bibliografía se amplió con referencias verificables de IUPAC, Cengage, Macmillan Learning, CLSI y OMS. El POE de laboratorio se identifica como material interno de práctica. Antes de la entrega, el equipo debe confirmar que las ediciones citadas coinciden con los materiales efectivamente consultados y completar los datos institucionales exactos del POE.
+
+La publicación web se realiza por el equipo mediante Netlify Drop. Una vez publicado, debe incorporarse al informe el enlace público generado y verificarse su apertura en ventana privada y en teléfono móvil.
